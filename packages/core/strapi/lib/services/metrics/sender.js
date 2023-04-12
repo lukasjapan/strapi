@@ -5,7 +5,6 @@ const path = require('path');
 const _ = require('lodash');
 const { map, values, sumBy, pipe, flatMap, propEq } = require('lodash/fp');
 const isDocker = require('is-docker');
-const fetch = require('node-fetch');
 const ciEnv = require('ci-info');
 const { isUsingTypeScriptSync } = require('@strapi/typescript-utils');
 const { env } = require('@strapi/utils');
@@ -94,7 +93,7 @@ module.exports = (strapi) => {
     };
 
     try {
-      const res = await fetch(`${ANALYTICS_URI}/api/v2/track`, reqParams);
+      const res = await strapi.fetch(`${ANALYTICS_URI}/api/v2/track`, reqParams);
       return res.ok;
     } catch (err) {
       return false;
